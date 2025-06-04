@@ -7,34 +7,25 @@ Có khả năng giao tiếp ngôn ngữ tự nhiên với người dùng (nông 
 Và đặc biệt, đưa ra các tư vấn thông minh dựa trên dữ liệu thực tế tại trang trại.
 Việc sử dụng Arduino Uno làm nền tảng phần cứng giúp mô hình đơn giản, chi phí thấp nhưng dễ mở rộng và tiếp cận với sinh viên, kỹ thuật viên, cũng như hộ nông dân nhỏ. Tích hợp cùng với mô hình ngôn ngữ lớn (LLM), chatbot có thể hiểu và phản hồi thông minh, tạo ra một công cụ hỗ trợ đắc lực trong sản xuất nông nghiệp hiện đại.
 CHỨC NĂNG VÀ MÔ TẢ
-STT	Chức năng	Mô tả chi tiết
-1️⃣	Đọc dữ liệu cảm biến từ Arduino Uno	Arduino thu thập dữ liệu từ các cảm biến như DHT11 (nhiệt độ, độ ẩm) và cảm biến độ ẩm đất, sau đó gửi qua Serial.
-2️⃣	Phân tích và gửi dữ liệu lên máy chủ	Tệp read_arduino_and_send.py nhận dữ liệu từ Arduino qua Serial COM, phân tích chuỗi dữ liệu bằng regex, trích xuất nhiệt độ/độ ẩm và gửi đến API /sensor_data/.
-2	Lưu trữ dữ liệu cảm biến vào cơ sở dữ liệu	FastAPI nhận dữ liệu từ client Python và lưu vào bảng sensor_data trong MySQL thông qua SQLAlchemy ORM.
-3	Truy xuất dữ liệu cảm biến theo ID	Người dùng có thể gọi API /sensor_data/{sensor_id} để xem toàn bộ dữ liệu cảm biến của một thiết bị cụ thể.
-4	Phát hiện nhiệt độ cao và gửi cảnh báo	Nếu nhiệt độ vượt quá 34°C, hệ thống sẽ tự động gọi webhook gửi sự kiện đến Rasa chatbot để sinh cảnh báo hoặc phản hồi.
-5	Gửi câu hỏi từ người dùng đến LLM	API /get_advice/ nhận câu hỏi từ người dùng và tự động thêm thông tin cảm biến mới nhất vào nội dung prompt.
-6	Sinh tư vấn thông minh từ LLM	Sử dụng mô hình Gemini 2.0 (Google Generative AI) để xử lý prompt, phân tích dữ liệu cảm biến và trả lời phù hợp bằng tiếng Việt.
-7	Chatbot nhận lệnh điều khiển thiết bị	Người dùng gửi lệnh như “tưới nước 5 phút”, chatbot xử lý ngôn ngữ, sinh hành động tương ứng để điều khiển máy bơm qua relay (phần này mở rộng sau nếu cần).
-8	Giao tiếp người dùng qua Rasa Chatbot	Giao tiếp ngôn ngữ tự nhiên giữa người dùng và hệ thống qua giao diện chatbot Rasa, kết nối với API backend.
-9	Kiểm tra hệ thống hoạt động	API /health dùng để kiểm tra trạng thái hoạt động của hệ thống (health check).
-
-
-
-
-
-
-
-
-
-
-
-
+| **STT** | **Chức năng**                              | **Mô tả chi tiết**                                                                                                                                                   |
+| ------- | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1️⃣     | Đọc dữ liệu cảm biến từ Arduino Uno        | Arduino thu thập dữ liệu từ các cảm biến như DHT11 (nhiệt độ, độ ẩm) và cảm biến độ ẩm đất, sau đó gửi qua Serial.                                                   |
+| 2️⃣     | Phân tích và gửi dữ liệu lên máy chủ       | Tệp `read_arduino_and_send.py` nhận dữ liệu từ Arduino qua Serial COM, phân tích chuỗi dữ liệu bằng regex, trích xuất nhiệt độ/độ ẩm và gửi đến API `/sensor_data/`. |
+| 3️⃣     | Lưu trữ dữ liệu cảm biến vào cơ sở dữ liệu | FastAPI nhận dữ liệu từ client Python và lưu vào bảng `sensor_data` trong MySQL thông qua SQLAlchemy ORM.                                                            |
+| 4️⃣     | Truy xuất dữ liệu cảm biến theo ID         | Người dùng có thể gọi API `/sensor_data/{sensor_id}` để xem toàn bộ dữ liệu cảm biến của một thiết bị cụ thể.                                                        |
+| 5️⃣     | Phát hiện nhiệt độ cao và gửi cảnh báo     | Nếu nhiệt độ vượt quá 34°C, hệ thống sẽ tự động gọi webhook gửi sự kiện đến **Rasa chatbot** để sinh cảnh báo hoặc phản hồi.                                         |
+| 6️⃣     | Gửi câu hỏi từ người dùng đến LLM          | API `/get_advice/` nhận câu hỏi từ người dùng và tự động thêm thông tin cảm biến mới nhất vào nội dung prompt.                                                       |
+| 7️⃣     | Sinh tư vấn thông minh từ LLM              | Sử dụng mô hình **Gemini 2.0 (Google Generative AI)** để xử lý prompt, phân tích dữ liệu cảm biến và trả lời phù hợp bằng tiếng Việt.                                |
+| 8️⃣     | Chatbot nhận lệnh điều khiển thiết bị      | Người dùng gửi lệnh như “tưới nước 5 phút”, chatbot xử lý ngôn ngữ, sinh hành động tương ứng để điều khiển máy bơm qua relay (phần này mở rộng sau nếu cần).         |
+| 9️⃣     | Giao tiếp người dùng qua Rasa Chatbot      | Giao tiếp ngôn ngữ tự nhiên giữa người dùng và hệ thống qua giao diện chatbot Rasa, kết nối với API backend.                                                         |
+| 🔟      | Kiểm tra hệ thống hoạt động                | API `/health` dùng để kiểm tra trạng thái hoạt động của hệ thống (health check).                                                                                     |
 
 
 SƠ ĐỒ CÁC KHÂU
+![image](https://github.com/user-attachments/assets/1d2b6d01-191d-48b6-8156-60040da2ce3b)
 
 SƠ ĐỒ CHỨC NĂNG HỆ THỐNG
+![image](https://github.com/user-attachments/assets/c35fca3c-eafd-4b82-85f7-dad740735b48)
 
 CÔNG NGHỆ SỬ DỤNG
 Thành phần	Công nghệ đề xuất
