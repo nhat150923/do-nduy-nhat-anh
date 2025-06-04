@@ -1,0 +1,72 @@
+version: "3.1"
+
+intents:
+  - greet
+  - bye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  # Farm Chatbot Intents
+  - request_temperature
+  - request_humidity
+  - request_sensor_data
+  - request_advice
+  - trigger_high_temp_alert # New intent for automated alerts
+
+entities:
+  # Farm Chatbot Entities
+  - sensor_id
+
+slots:
+  sensor_id:
+    type: text
+    influence_conversation: false # Set to true if this slot should influence the conversation flow
+    mappings:
+    - type: from_entity
+      entity: sensor_id
+  temperature:
+    type: float
+    influence_conversation: false
+    mappings:
+    - type: from_intent
+      intent: trigger_high_temp_alert
+      value: temperature
+  humidity:
+    type: float
+    influence_conversation: false
+    mappings:
+    - type: from_intent
+      intent: trigger_high_temp_alert
+      value: humidity
+
+responses:
+  utter_greet:
+  - text: "Xin chào! Tôi có thể giúp gì cho trang trại của bạn?"
+
+  utter_bye:
+  - text: "Tạm biệt! Chúc một ngày tốt lành."
+
+  utter_happy:
+  - text: "Tuyệt vời! Tôi rất vui khi nghe điều đó."
+
+  utter_goodbye:
+  - text: "Tạm biệt"
+
+  utter_iamabot:
+  - text: "Tôi là một bot, được huấn luyện bởi Rasa."
+
+  utter_unhappy:
+  - text: "Tôi xin lỗi vì bạn cảm thấy không tốt. Tôi có thể làm gì để giúp bạn không?"
+
+# We will define custom actions to interact with the backend API
+actions:
+  - action_get_sensor_data
+  - action_get_advice
+  - action_handle_high_temperature_alert # New action for high temp alert
+  # You can add more specific actions later, e.g., action_get_temperature, action_get_humidity
+
+sessions:
+  length: 10 # in minutes
+  carry_over_slots_to_new_session: true

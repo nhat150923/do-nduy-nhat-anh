@@ -1,0 +1,42 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}]": "utter_iamabot",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}, {\"prev_action\": {\"action_name\": \"utter_iamabot\"}, \"user\": {\"intent\": \"bot_challenge\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_sensor_data\"}}]": "action_get_sensor_data",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_sensor_data\"}}, {\"prev_action\": {\"action_name\": \"action_get_sensor_data\"}, \"user\": {\"intent\": \"request_sensor_data\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_advice\"}}]": "action_get_advice",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_advice\"}}, {\"prev_action\": {\"action_name\": \"action_get_advice\"}, \"user\": {\"intent\": \"request_advice\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"trigger_high_temp_alert\"}}]": "action_handle_high_temperature_alert",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"trigger_high_temp_alert\"}}, {\"prev_action\": {\"action_name\": \"action_handle_high_temperature_alert\"}, \"user\": {\"intent\": \"trigger_high_temp_alert\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bye\"}}]": "utter_bye",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bye\"}}, {\"prev_action\": {\"action_name\": \"utter_bye\"}, \"user\": {\"intent\": \"bye\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_temperature\"}}]": "action_get_sensor_data",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_temperature\"}}, {\"prev_action\": {\"action_name\": \"action_get_sensor_data\"}, \"user\": {\"intent\": \"request_temperature\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_humidity\"}}]": "action_get_sensor_data",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_humidity\"}}, {\"prev_action\": {\"action_name\": \"action_get_sensor_data\"}, \"user\": {\"intent\": \"request_humidity\"}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {},
+    "rules_not_in_stories": [
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bye\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bye\"}}, {\"prev_action\": {\"action_name\": \"utter_bye\"}, \"user\": {\"intent\": \"bye\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_humidity\"}}, {\"prev_action\": {\"action_name\": \"action_get_sensor_data\"}, \"user\": {\"intent\": \"request_humidity\"}}]",
+      "predicting default action with intent back",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_advice\"}}, {\"prev_action\": {\"action_name\": \"action_get_advice\"}, \"user\": {\"intent\": \"request_advice\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_temperature\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_temperature\"}}, {\"prev_action\": {\"action_name\": \"action_get_sensor_data\"}, \"user\": {\"intent\": \"request_temperature\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_sensor_data\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_sensor_data\"}}, {\"prev_action\": {\"action_name\": \"action_get_sensor_data\"}, \"user\": {\"intent\": \"request_sensor_data\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_advice\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"trigger_high_temp_alert\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"request_humidity\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}, {\"prev_action\": {\"action_name\": \"utter_iamabot\"}, \"user\": {\"intent\": \"bot_challenge\"}}]",
+      "predicting default action with intent restart",
+      "predicting default action with intent session_start",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"trigger_high_temp_alert\"}}, {\"prev_action\": {\"action_name\": \"action_handle_high_temperature_alert\"}, \"user\": {\"intent\": \"trigger_high_temp_alert\"}}]"
+    ]
+  }
+}

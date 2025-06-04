@@ -1,0 +1,40 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: bye
+  - action: utter_bye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+# Rules for farm chatbot actions
+
+- rule: Activate get sensor data action on request_sensor_data intent
+  steps:
+  - intent: request_sensor_data
+  - action: action_get_sensor_data
+
+- rule: Activate get sensor data action on request_temperature intent
+  steps:
+  - intent: request_temperature
+  - action: action_get_sensor_data
+
+- rule: Activate get sensor data action on request_humidity intent
+  steps:
+  - intent: request_humidity
+  - action: action_get_sensor_data
+
+- rule: Activate get advice action on request_advice intent
+  steps:
+  - intent: request_advice
+  - action: action_get_advice
+
+- rule: Handle high temperature alert
+  steps:
+  - intent: trigger_high_temp_alert
+  - action: action_handle_high_temperature_alert

@@ -1,0 +1,13 @@
+{
+  "0": "affirm",
+  "1": "bot_challenge",
+  "2": "bye",
+  "3": "deny",
+  "4": "greet",
+  "5": "mood_great",
+  "6": "mood_unhappy",
+  "7": "request_advice",
+  "8": "request_humidity",
+  "9": "request_sensor_data",
+  "10": "request_temperature"
+}

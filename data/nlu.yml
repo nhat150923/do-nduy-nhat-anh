@@ -1,0 +1,92 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - chào
+    - xin chào
+    - hey
+    - hello
+    - chào bạn
+
+- intent: bye
+  examples: |
+    - tạm biệt
+    - hẹn gặp lại
+    - bye
+    - mai nói chuyện tiếp
+
+- intent: affirm
+  examples: |
+    - đúng
+    - có
+    - vâng
+    - phải
+    - chính xác
+
+- intent: deny
+  examples: |
+    - sai
+    - không
+    - không phải
+    - chưa đúng
+
+- intent: mood_great
+  examples: |
+    - cảm thấy rất tuyệt vời
+    - tôi ổn
+    - tôi khỏe
+    - tuyệt
+    - rất tốt
+    - tôi vui
+
+- intent: mood_unhappy
+  examples: |
+    - tôi buồn
+    - không vui
+    - chán quá
+    - không ổn
+    - tệ
+
+- intent: bot_challenge
+  examples: |
+    - bạn có phải bot không?
+    - bạn là ai?
+    - bạn là người hay bot?
+
+# Farm Chatbot Intents
+- intent: request_temperature
+  examples: |
+    - nhiệt độ hiện tại là bao nhiêu?
+    - kiểm tra nhiệt độ
+    - nhiệt độ bây giờ
+    - cho tôi biết nhiệt độ
+    - nhiệt độ
+    - nhiệt độ [sensor_001](sensor_id) là bao nhiêu?
+    - nhiệt độ ở [khu A](sensor_id)
+
+- intent: request_humidity
+  examples: |
+    - độ ẩm hiện tại thế nào?
+    - kiểm tra độ ẩm
+    - độ ẩm bây giờ
+    - cho tôi biết độ ẩm
+    - độ ẩm
+    - độ ẩm của [sensor_002](sensor_id) là bao nhiêu?
+    - độ ẩm ở [khu B](sensor_id)
+
+- intent: request_sensor_data
+  examples: |
+    - cho tôi xem dữ liệu cảm biến
+    - thông tin từ cảm biến
+    - đọc dữ liệu cảm biến
+    - dữ liệu cảm biến [sensor_001](sensor_id)
+    - tình trạng cảm biến
+
+- intent: request_advice
+  examples: |
+    - cần tư vấn gì hôm nay?
+    - tư vấn chăm sóc trang trại
+    - nên làm gì bây giờ?
+    - cho lời khuyên
+    - tư vấn dựa trên dữ liệu cảm biến
