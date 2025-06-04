@@ -28,14 +28,15 @@ SƠ ĐỒ CHỨC NĂNG HỆ THỐNG
 ![image](https://github.com/user-attachments/assets/c35fca3c-eafd-4b82-85f7-dad740735b48)
 
 CÔNG NGHỆ SỬ DỤNG
-Thành phần	Công nghệ đề xuất
-IoT sensing	ESP32 + Cảm biến độ ẩm/nhiệt độ (DHT11, Soil Moisture Sensor)
-Điều khiển	Relay Module điều khiển máy bơm/thiết bị cho ăn
-Giao tiếp IoT	Giao thức MQTT hoặc HTTP REST API
-Xử lý ngôn ngữ	GPT API (OpenAI), hoặc open-source như LLaMA
-Backend xử lý	Python Flask hoặc Node.js
-Giao diện người dùng	Telegram Bot, Zalo, hoặc Web chat
-QUY TRÌNH HOẠT ĐỘNG
+| Thành phần | Công nghệ đề xuất                     |
+| ---------- | ------------------------------------- |
+| Chatbot    | OpenAI API (GPT-4), LLaMA, Claude     |
+| Giao tiếp  | REST API, MQTT                        |
+| IoT        | ESP32, DHT11, Cảm biến độ ẩm đất      |
+| Backend    | Firebase, Flask, FastAPI              |
+| UI         | Telegram Bot, Zalo OA, Web UI (React) |
+| Điều khiển | Relay Module, Servo, DC Motor         |
+
 1.Truy vấn thông tin
  Ví dụ: 
 Người dùng gửi: “Độ ẩm đất ở khu A hiện tại là bao nhiêu?”
