@@ -1,3 +1,68 @@
+CHATBOT NÔNG NGHIỆP THÔNG MINH
+Nông nghiệp thông minh (Smart Agriculture) ra đời như một giải pháp tất yếu, ứng dụng các công nghệ hiện đại như Internet of Things (IoT), trí tuệ nhân tạo (AI), cảm biến thông minh, điện toán đám mây, và đặc biệt là mô hình ngôn ngữ lớn (LLM) để tự động hóa và tối ưu hóa mọi hoạt động trong quy trình sản xuất nông nghiệp.
+Trong xu thế đó, đề tài “Xây dựng chatbot hỗ trợ quản lý trang trại kết hợp API LLM và cảm biến IoT sử dụng Arduino Uno” được triển khai với mục tiêu xây dựng một hệ thống:
+Có khả năng giao tiếp ngôn ngữ tự nhiên với người dùng (nông dân).
+　　　　　Tự động thu thập và phân tích dữ liệu từ các cảm biến môi trường như độ ẩm đất, nhiệt độ không khí.
+Điều khiển thiết bị tự động như hệ thống bơm nước hoặc cho ăn.
+Và đặc biệt, đưa ra các tư vấn thông minh dựa trên dữ liệu thực tế tại trang trại.
+Việc sử dụng Arduino Uno làm nền tảng phần cứng giúp mô hình đơn giản, chi phí thấp nhưng dễ mở rộng và tiếp cận với sinh viên, kỹ thuật viên, cũng như hộ nông dân nhỏ. Tích hợp cùng với mô hình ngôn ngữ lớn (LLM), chatbot có thể hiểu và phản hồi thông minh, tạo ra một công cụ hỗ trợ đắc lực trong sản xuất nông nghiệp hiện đại.
+CHỨC NĂNG VÀ MÔ TẢ
+STT	Chức năng	Mô tả chi tiết
+1️⃣	Đọc dữ liệu cảm biến từ Arduino Uno	Arduino thu thập dữ liệu từ các cảm biến như DHT11 (nhiệt độ, độ ẩm) và cảm biến độ ẩm đất, sau đó gửi qua Serial.
+2️⃣	Phân tích và gửi dữ liệu lên máy chủ	Tệp read_arduino_and_send.py nhận dữ liệu từ Arduino qua Serial COM, phân tích chuỗi dữ liệu bằng regex, trích xuất nhiệt độ/độ ẩm và gửi đến API /sensor_data/.
+2	Lưu trữ dữ liệu cảm biến vào cơ sở dữ liệu	FastAPI nhận dữ liệu từ client Python và lưu vào bảng sensor_data trong MySQL thông qua SQLAlchemy ORM.
+3	Truy xuất dữ liệu cảm biến theo ID	Người dùng có thể gọi API /sensor_data/{sensor_id} để xem toàn bộ dữ liệu cảm biến của một thiết bị cụ thể.
+4	Phát hiện nhiệt độ cao và gửi cảnh báo	Nếu nhiệt độ vượt quá 34°C, hệ thống sẽ tự động gọi webhook gửi sự kiện đến Rasa chatbot để sinh cảnh báo hoặc phản hồi.
+5	Gửi câu hỏi từ người dùng đến LLM	API /get_advice/ nhận câu hỏi từ người dùng và tự động thêm thông tin cảm biến mới nhất vào nội dung prompt.
+6	Sinh tư vấn thông minh từ LLM	Sử dụng mô hình Gemini 2.0 (Google Generative AI) để xử lý prompt, phân tích dữ liệu cảm biến và trả lời phù hợp bằng tiếng Việt.
+7	Chatbot nhận lệnh điều khiển thiết bị	Người dùng gửi lệnh như “tưới nước 5 phút”, chatbot xử lý ngôn ngữ, sinh hành động tương ứng để điều khiển máy bơm qua relay (phần này mở rộng sau nếu cần).
+8	Giao tiếp người dùng qua Rasa Chatbot	Giao tiếp ngôn ngữ tự nhiên giữa người dùng và hệ thống qua giao diện chatbot Rasa, kết nối với API backend.
+9	Kiểm tra hệ thống hoạt động	API /health dùng để kiểm tra trạng thái hoạt động của hệ thống (health check).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SƠ ĐỒ CÁC KHÂU
+
+SƠ ĐỒ CHỨC NĂNG HỆ THỐNG
+
+CÔNG NGHỆ SỬ DỤNG
+Thành phần	Công nghệ đề xuất
+IoT sensing	ESP32 + Cảm biến độ ẩm/nhiệt độ (DHT11, Soil Moisture Sensor)
+Điều khiển	Relay Module điều khiển máy bơm/thiết bị cho ăn
+Giao tiếp IoT	Giao thức MQTT hoặc HTTP REST API
+Xử lý ngôn ngữ	GPT API (OpenAI), hoặc open-source như LLaMA
+Backend xử lý	Python Flask hoặc Node.js
+Giao diện người dùng	Telegram Bot, Zalo, hoặc Web chat
+QUY TRÌNH HOẠT ĐỘNG
+1.Truy vấn thông tin
+ Ví dụ: 
+Người dùng gửi: “Độ ẩm đất ở khu A hiện tại là bao nhiêu?”
+ Chatbot phân tích → xác định mục tiêu là “truy xuất cảm biến độ ẩm khu A”. 
+Gửi truy vấn API: GET /sensors/moisture?zone=A. 
+Nhận dữ liệu: ví dụ 25%. Phản hồi: “Độ ẩm khu A hiện tại là 25%, hơi khô, nên tưới thêm nước.” 
+2. Điều khiển thiết bị 
+Ví dụ: 
+Người dùng gửi: “Tưới nước cho khu A trong 10 phút”
+ LLM hiểu yêu cầu → sinh lệnh: POST /actuators/pump/start?zone=A&duration=10. 
+Thiết bị nhận lệnh → kích hoạt máy bơm khu A.
+ Phản hồi: “Đã kích hoạt bơm nước khu A trong 10 phút.”
+HƯỚNG PHÁT TRIỂN MỞ RỘNG
+ Nhận dạng hình ảnh từ camera: phát hiện sâu bệnh, vật thể lạ, động vật hoang dã.
+  Phân tích lịch sử dữ liệu cảm biến: dự đoán điều kiện thời tiết, lên lịch tưới tiêu tự động.
+  Học máy (ML): cá nhân hóa phản hồi dựa trên hành vi người dùng và thời điểm.
+  Tích hợp bản đồ số, GPS: định vị các khu vực trong trang trại.
+
 # Hướng dẫn cài đặt và chạy hệ thống giám sát trang trại thông minh
 
 Dự án này là một hệ thống giám sát trang trại thông minh, sử dụng cảm biến (qua Arduino Uno) để thu thập dữ liệu nhiệt độ và độ ẩm. Dữ liệu được gửi đến một backend FastAPI, lưu trữ trong cơ sở dữ liệu MySQL, và sau đó được chatbot Rasa sử dụng để cung cấp lời khuyên và cảnh báo tự động thông qua email khi nhiệt độ vượt ngưỡng.
